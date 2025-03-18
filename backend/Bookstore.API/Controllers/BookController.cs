@@ -12,10 +12,21 @@ namespace Bookstore.API.Controllers
         public BookController(BookDbContext temp) => _bookContext = temp;
 
         [HttpGet]
-        public IEnumerable<Book> Get()
+        public IActionResult Get(int pageSize = 5, int pageNum =1)
         {
-            var something = _bookContext.Books.ToList();
-            return something;
+            var something = _bookContext.Books
+                .Skip((pageNum-1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var totalNumBooks = _bookContext.Books.Count();
+
+            var someObject = new
+            {
+                Books = something,
+                TotalNumBooks = totalNumBooks
+            };
+            return Ok(someObject);
         }
     }
 }
