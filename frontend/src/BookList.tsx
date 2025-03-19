@@ -8,10 +8,13 @@ function BookList(){
     const [pageNum, setPageNum] = useState<number>(1);
     const [totalItems, setTotalItems] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(0);
+    const [sortByTitle, setSortByTitle] = useState<boolean>(false); // Sorting state
+
+
 
     useEffect(() => {
         const fetchBooks = async () => {
-            const response = await fetch(`https://localhost:5000/api/Book?pageSize=${pageSize}&pageNum=${pageNum}`);
+            const response = await fetch(`https://localhost:5000/api/Book?pageSize=${pageSize}&pageNum=${pageNum}&sortByTitleAsc=${sortByTitle}`);
             const data = await response.json();
             setBooks(data.books);
             setTotalItems(data.totalNumBooks);
@@ -19,18 +22,27 @@ function BookList(){
         };
 
         fetchBooks();
-    }, [pageSize, pageNum, totalItems]);
+    }, [pageSize, pageNum, totalItems, sortByTitle]);
 
     return (
         <>
         <h1>Online Bookstore!</h1>
         <br />
         <br />
+        <button onClick={() => {
+        setSortByTitle(prev => !prev);
+        setPageNum(1); // Reset to first page when sorting changes
+        }}>
+        Sort by Title {sortByTitle ? "(Default)" : "(A-Z)"}
+        </button>
+        <br />
+        <br />
+        <br /> 
         {books.map((m) =>
             <div id="bookCard" className="card" key={m.bookId}>
-                <h3 className="card-title">{m.title}</h3>
+                <h3 className="card-title">{m.title}</h3> 
                 <div className="card-body">
-                    <ul className="list-unstyled">
+                    <ul className="list-unstyled"> 
                         <li><strong>Author:</strong> {m.author}</li>
                         <li><strong>Publisher:</strong> {m.publisher}</li>
                         <li><strong>ISBN:</strong> {m.isbn}</li>
@@ -60,7 +72,6 @@ function BookList(){
             <select value={pageSize} onChange={(p) => {
                 setPageSize(Number(p.target.value));
                 setPageNum(1);}}>
-
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
