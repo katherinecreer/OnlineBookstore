@@ -1,11 +1,11 @@
 import './App.css'
-import ProjectList from './BookList'
+import BookList from './BookList'
 
 function App() {
 
   return (
     <>
-      <ProjectList />
+      <BookList />
     </>
   );
 }
