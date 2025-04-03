@@ -1,4 +1,5 @@
 @Bookstore.API_HostAddress = http://localhost:5277
+@Bookstore = variable value
 
 GET {{Bookstore.API_HostAddress}}/weatherforecast/
 Accept: application/json
