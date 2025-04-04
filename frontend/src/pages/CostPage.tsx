@@ -12,6 +12,7 @@ function CostPage() {
     const price = decodeURIComponent(useParams().price || "8.60");
     const { addToCart } = useCart();
     const [quantity, setQuantity] = useState<number>(1);
+    const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
     const handleAddToCart = () => {
         const newItem: CartItem = {
@@ -21,12 +22,26 @@ function CostPage() {
         quantity: quantity};
 
         addToCart(newItem);
-        navigate('/cart')
+        setAlertMessage("Item successfully added to cart!");
+
+        // Hide the alert after 1.5 seconds
+        setTimeout(() => {
+            setAlertMessage(null);
+            navigate('/cart'); // Navigate to the cart after the alert disappears
+        }, 1000); // 1.5 seconds
     };
 
     return (
         <>
         <Header /><br /><br /><br /><br />
+
+        {alertMessage && (
+                <div className="alert alert-success alert-dismissible fade show" role="alert">
+                    {alertMessage}
+                    <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+        )}
+
         <div>
             <h4>Are you sure you want to purchase <strong>{title}</strong>?</h4><br /><br />
             <h4>Price: ${price}</h4>
