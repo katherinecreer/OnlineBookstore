@@ -16,7 +16,7 @@ builder.Services.AddDbContext<BookDbContext>(options =>
 builder.Services.AddCors(options =>
         options.AddPolicy("AllowReactApp",
         policy => { 
-            policy.WithOrigins("http://localhost:3001")
+            policy.WithOrigins("http://localhost:3001", "https://polite-sky-0cd2e4a1e.6.azurestaticapps.net")
                 .AllowAnyMethod()
                 .AllowAnyHeader();
         }));
