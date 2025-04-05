@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/62e50c07-902a-4288-8be2-b1ce6d9c4f15/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/OnlineBookstore-Creer-Backend",
+    "appService.deploySubpath": "backend/Bookstore.API/publish"
+}
